@@ -1,0 +1,92 @@
+{
+  "entity.orangutan.ambient": {
+    "category": "entity",
+    "subtitle": "entity.orangutan.ambient",
+    "sounds": [
+      {
+        "name": "primate:entity/orangutan/entity.orangutan.ambient",
+        "stream": true
+      }
+    ]
+  },
+  "entity.orangutan.hurt": {
+    "category": "entity",
+    "subtitle": "entity.orangutan.hurt",
+    "sounds": [
+      {
+        "name": "primate:entity/orangutan/entity.orangutan.hurt",
+        "stream": true
+      }
+    ]
+  },
+  "entity.orangutan.death": {
+    "category": "entity",
+    "subtitle": "entity.orangutan.death",
+    "sounds": [
+      {
+        "name": "primate:entity/orangutan/entity.orangutan.death",
+        "stream": true
+      }
+    ]
+  },
+  "entity.proboscis.ambient": {
+    "category": "entity",
+    "subtitle": "entity.proboscis.ambient",
+    "sounds": [
+      {
+        "name": "primate:entity/proboscis/entity.proboscis.ambient",
+        "stream": true
+      }
+    ]
+  },
+  "entity.proboscis.hurt": {
+    "category": "entity",
+    "subtitle": "entity.proboscis.hurt",
+    "sounds": [
+      {
+        "name": "primate:entity/proboscis/entity.proboscis.hurt",
+        "stream": true
+      }
+    ]
+  },
+  "entity.proboscis.death": {
+    "category": "entity",
+    "subtitle": "entity.proboscis.death",
+    "sounds": [
+      {
+        "name": "primate:entity/proboscis/entity.proboscis.death",
+        "stream": true
+      }
+    ]
+  },
+  "entity.uakari.ambient": {
+    "category": "entity",
+    "subtitle": "entity.uakari.ambient",
+    "sounds": [
+      {
+        "name": "primate:entity/uakari/entity.uakari.ambient",
+        "stream": true
+      }
+    ]
+  },
+  "entity.uakari.hurt": {
+    "category": "entity",
+    "subtitle": "entity.uakari.hurt",
+    "sounds": [
+      {
+        "name": "primate:entity/uakari/entity.uakari.hurt",
+        "stream": true
+      }
+    ]
+  },
+  "entity.uakari.death": {
+    "category": "entity",
+    "subtitle": "entity.uakari.death",
+    "sounds": [
+      {
+        "name": "primate:entity/uakari/entity.uakari.death",
+        "stream": true
+      }
+    ]
+  }
+}
