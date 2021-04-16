@@ -1,22 +1,26 @@
 package com.hugomage.primate.entities;
 
+import com.hugomage.primate.init.ModEntityTypes;
 import com.hugomage.primate.init.ModSoundEventTypes;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -33,15 +37,17 @@ public class OrangutanEntity extends AnimalEntity {
     public OrangutanEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
     }
-
+    private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(UakariEntity.class, DataSerializers.VARINT);
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 30.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 45.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 6D)
                 .createMutableAttribute(Attributes.ATTACK_SPEED, 4D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1D);
     }
+
+
 
     @Override
     protected void registerGoals() {
@@ -62,14 +68,28 @@ public class OrangutanEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        return null;
+    public AgeableEntity func_241840_a(ServerWorld serverWorld, AgeableEntity ageableEntity) {
+        OrangutanEntity orangutan = ModEntityTypes.ORANGUTAN.get().create(serverWorld);
+        orangutan.setVariant(this.getVariant());
+        return orangutan;
     }
 
-    public static boolean canOrangutanSpawn(EntityType<OrangutanEntity> p_234418_0_, IWorld p_234418_1_, SpawnReason p_234418_2_, BlockPos p_234418_3_, Random p_234418_4_)
-    {
-        return true;
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putInt("variant", this.getVariant());
+
     }
+
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setVariant(compound.getInt("variant"));
+
+    }
+
+
 
     @Nullable
     @Override
@@ -96,4 +116,51 @@ public class OrangutanEntity extends AnimalEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound () { return ModSoundEventTypes.ORANGUTAN_DEATH.get(); }
+
+    public static boolean canOrangutanSpawn(EntityType<? extends AnimalEntity> animal, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+        return true;
+    }
+
+    public void baseTick() {
+        super.baseTick();
+        this.world.getProfiler().startSection("mobBaseTick");
+        if (this.isAlive() && this.rand.nextInt(1000) < this.livingSoundTime++) {
+            this.playAmbientSound();
+        }
+
+        this.world.getProfiler().endSection();
+    }
+
+    private void func_241821_eG() {
+        this.livingSoundTime = -this.getTalkInterval();
+    }
+
+    public int livingSoundTime() {
+        return 0;
+    }
+
+    public int getVariant() {
+        return this.dataManager.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.dataManager.set(VARIANT, variant);
+    }
+
+    @Nullable
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        if(this.rand.nextInt(100) == 0){
+            this.setVariant(2);
+        }else if(rand.nextInt(100) == 0){
+            this.setVariant(1);
+        }
+        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(VARIANT, 0);
+    }
 }
+
+

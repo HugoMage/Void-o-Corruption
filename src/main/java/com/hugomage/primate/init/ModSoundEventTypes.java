@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModSoundEventTypes
 {
- public static DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Primate.MOD_ID);
+ public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Primate.MOD_ID);
 
  public static final RegistryObject<SoundEvent> ORANGUTAN_AMBIENT = SOUND_EVENTS.register("entity.orangutan.ambient", () ->
          new SoundEvent(new ResourceLocation(Primate.MOD_ID, "entity.orangutan.ambient"))
@@ -39,4 +39,22 @@ public class ModSoundEventTypes
  public static final RegistryObject<SoundEvent> UAKARI_DEATH = SOUND_EVENTS.register("entity.uakari.death", () ->
          new SoundEvent(new ResourceLocation(Primate.MOD_ID, "entity.uakari.death"))
  );
+ public static final RegistryObject<SoundEvent> ZOMBIEAPE_AMBIENT = SOUND_EVENTS.register("entity.zombieape.ambient", () ->
+         new SoundEvent(new ResourceLocation(Primate.MOD_ID, "entity.zombieape.ambient"))
+ );
+ public static final RegistryObject<SoundEvent> ZOMBIEAPE_HURT = SOUND_EVENTS.register("entity.zombieape.hurt", () ->
+         new SoundEvent(new ResourceLocation(Primate.MOD_ID, "entity.zombieape.hurt"))
+ );
+ public static final RegistryObject<SoundEvent> ZOMBIEAPE_DEATH = SOUND_EVENTS.register("entity.zombieape.death", () ->
+         new SoundEvent(new ResourceLocation(Primate.MOD_ID, "entity.zombieape.death"))
+ );
+ public static final RegistryObject<SoundEvent> DISC_BAMBOO = SOUND_EVENTS.register("music.disc.bamboo", () ->
+         new SoundEvent(new ResourceLocation(Primate.MOD_ID, "music.disc.bamboo"))
+ );
+
+
+
+
+
+
 }

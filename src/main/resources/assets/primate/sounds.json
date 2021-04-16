@@ -88,5 +88,44 @@
         "stream": true
       }
     ]
+  },
+  "entity.zombieape.ambient": {
+    "category": "entity",
+    "subtitle": "entity.zombieape.ambient",
+    "sounds": [
+      {
+        "name": "primate:entity/zombieape/entity.zombieape.ambient",
+        "stream": true
+      }
+    ]
+  },
+  "entity.zombieape.hurt": {
+    "category": "entity",
+    "subtitle": "entity.zombieape.hurt",
+    "sounds": [
+      {
+        "name": "primate:entity/zombieape/entity.zombieape.hurt",
+        "stream": true
+      }
+    ]
+  },
+  "entity.zombieape.death": {
+    "category": "entity",
+    "subtitle": "entity.zombieape.death",
+    "sounds": [
+      {
+        "name": "primate:entity/zombieape/entity.zombieape.death",
+        "stream": true
+      }
+    ]
+  },
+  "music.disc.bamboo": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "primate:music/disc/bamboo",
+        "stream": true
+      }
+    ]
   }
 }

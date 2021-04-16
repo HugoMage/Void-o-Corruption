@@ -15,7 +15,7 @@ public class ProboscisRenderer extends MobRenderer<ProboscisEntity, ProboscisMod
 
 
     public ProboscisRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new ProboscisModel<>(), 0.8F);
+        super(renderManagerIn, new ProboscisModel<>(), 0.6F);
     }
 
     @Override

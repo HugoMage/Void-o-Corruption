@@ -89,6 +89,14 @@ public class OrangutanModel<T extends OrangutanEntity> extends EntityModel<T> {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
+
+    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+        if (entityIn.getAttackTarget() != null) {
+            this.rightarm.rotateAngleX += Math.PI;
+            this.leftarm.rotateAngleX += Math.PI;
+        }
+}
+
 }
 
 

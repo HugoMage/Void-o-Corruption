@@ -1,21 +1,33 @@
 package com.hugomage.primate;
 
-import com.hugomage.primate.entities.OrangutanEntity;
-import com.hugomage.primate.entities.ProboscisEntity;
-import com.hugomage.primate.entities.UakariEntity;
+import com.hugomage.primate.entities.*;
 import com.hugomage.primate.init.ModEntityTypes;
 import com.hugomage.primate.init.ModSoundEventTypes;
 import com.hugomage.primate.util.RegistryHandler;
+import com.hugomage.primate.world.gen.ModEntitySpawning;
 import jdk.nashorn.internal.objects.Global;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.TableLootEntry;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -26,6 +38,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -60,7 +73,11 @@ public class Primate
             GlobalEntityTypeAttributes.put(ModEntityTypes.ORANGUTAN.get(), OrangutanEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.UAKARI.get(), UakariEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.PROBOSCIS.get(), ProboscisEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.BONOBO.get(), BonoboEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.ZOMBIEAPE.get(), ZombieApeEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.MANDRILL.get(), MandrillEntity.setCustomAttributes().create());
         });
+
     }
     {
         // some preinit code
@@ -72,8 +89,15 @@ public class Primate
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
     }
+    @SubscribeEvent
+    public void onBiomeLoad(BiomeLoadingEvent event) {
+        ModEntitySpawning.onBiomesLoad(event);
+    }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
+
+
+
+            private void enqueueIMC(final InterModEnqueueEvent event)
     {
         // some example code to dispatch IMC to another mod
         InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
@@ -103,4 +127,6 @@ public class Primate
             LOGGER.info("HELLO from Register Block");
         }
     }
+
+
 }

@@ -12,6 +12,7 @@ public class PoisonFoodBase extends Item {
     public PoisonFoodBase() {
         super(new Item.Properties()
                 .group(ItemGroup.BREWING)
+                .isImmuneToFire()
                 .food(new Food.Builder()
                                 .hunger(8)
                                 .effect(new EffectInstance(Effects.POISON,300, 3), 1.0f).build()
